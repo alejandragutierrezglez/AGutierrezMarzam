@@ -1,0 +1,36 @@
+﻿@model ML.Cliente
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="~/fonts/Login.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+@using (Html.BeginForm("Login", "Medicamento", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <body>
+        <div class="container" onclick="onclick">
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="center">
+                <h2>Bienvenido</h2>
+                @Html.TextBoxFor(model => model.Username, new { @class = "form-control", @id = "txtUsername", @placeholder = "Usuario" })
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @id = "txtPassword", @placeholder = "Password" })
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <h2>&nbsp;</h2>
+            </div>
+        </div>
+
+    </body>
+}
+</html>
+

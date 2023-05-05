@@ -1,0 +1,88 @@
+﻿@model ML.ClienteMedicamento
+
+@{
+    ViewBag.Title = "MedicamentosGetByCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Seleccione el Icono ✔ para agregar un MEDICAMENTO al cliente</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div>
+                    @Html.LabelFor(model => model.Cliente.IdCliente, new { @class = "hidden" })
+                    @Html.TextBoxFor(model => model.Cliente.IdCliente, new { @class = "hidden form-control" })
+                    @Html.ValidationMessageFor(model => model.Cliente.IdCliente)
+                    @*hidden*@
+                </div>
+                <p>Cliente: </p>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Cliente.Nombre)
+                    @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control", @id = "txtNombre", disabled = "true" })
+                    @Html.ValidationMessageFor(model => model.Cliente.Nombre, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Cliente.ApellidoPaterno)
+                    @Html.TextBoxFor(model => model.Cliente.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", disabled = "true" })
+                    @Html.ValidationMessageFor(model => model.Cliente.ApellidoPaterno, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Cliente.ApellidoMaterno)
+                    @Html.TextBoxFor(model => model.Cliente.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", disabled = "true" })
+                    @Html.ValidationMessageFor(model => model.Cliente.ApellidoMaterno, null, new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-success glyphicon glyphicon-ok" href="@Url.Action("MateriasSinAsignarGetByAlumno", "AlumnoMateria", Model.Cliente)"></a>
+        </div>
+    </div>
+    <br />
+    @*<div class="row">
+            <div class="col-md-1 ">
+                @Html.ActionLink("Asignar", "MateriasSinAsignarGetByAlumno", "AlumnoMateria", htmlAttributes: new { @class = "btn btn-success" })
+            </div>
+            <br> <br />
+        </div>*@
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>Eliminar</td>
+                        <td class="hidden">IdSKUMedicamento</td>
+                        <td class="hidden">IdCliente</td>
+                        <td>Precio</td>
+                        <td>Nombre</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.ClienteMedicamento clienteMedicamento in Model.ClientesMedicamentos)
+                    {
+                        <tr>
+                            <td class="text-center"><a class="btn btn-danger glyphicon glyphicon-trash " href="@Url.Action("MedicamentosDelete", "ClienteMedicamento", new { IdCliente = clienteMedicamento.Cliente.IdCliente, IdSKUMedicamento = clienteMedicamento.Medicamento.IdSKUMedicamento })" onclick="return confirm('¿Estas seguro que deseas eliminar este registro?');"></a></td>
+                            <td class="hidden">@clienteMedicamento.Medicamento.IdSKUMedicamento</td>
+                            <td class="hidden">@clienteMedicamento.Cliente.IdCliente</td>
+                            <td>@clienteMedicamento.Medicamento.Precio</td>
+                            <td>@clienteMedicamento.Medicamento.Nombre</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            @Html.ActionLink("Regresar", "GetAll", "ClienteMedicamento", htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
+    </div>
+
+</div>

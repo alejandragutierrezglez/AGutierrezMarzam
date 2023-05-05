@@ -1,0 +1,49 @@
+﻿@model ML.ClienteMedicamento
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="=col-md-12">
+            <h4>Cliente-Medicamento</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Seleccione el cliente para visualizar sus medicamentos registrados</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <table class="table table-bordered table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <td>Seleccionar</td>
+                        <td class="hidden">IdCliente</td>
+                        <td>Nombre</td>
+                        <td>Apellido Paterno </td>
+                        <td>Apellido Materno</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.ClienteMedicamento clienteMedicamento in Model.ClientesMedicamentos)
+                    {
+                        <tr>
+                            <td class="text-center"><a class="btn btn-warning glyphicon glyphicon-ok" href="@Url.Action("MedicamentosGetByCliente", "ClienteMedicamento", new { IdCliente = clienteMedicamento.Cliente.IdCliente })"></a></td>
+
+                            <td class="hidden">@clienteMedicamento.Cliente.IdCliente</td>
+                            <td>@clienteMedicamento.Cliente.Nombre</td>
+                            <td>@clienteMedicamento.Cliente.ApellidoPaterno</td>
+                            <td>@clienteMedicamento.Cliente.ApellidoMaterno</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

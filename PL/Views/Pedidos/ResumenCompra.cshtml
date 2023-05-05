@@ -1,0 +1,75 @@
+﻿@model ML.ClienteMedicamento
+@{
+    ViewBag.Title = "ResumenCompra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Resumen de Compra</h2>
+
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group">
+            <div>
+                @Html.LabelFor(model => model.Cliente.IdCliente, new { @class = "hidden" })
+                @Html.TextBoxFor(model => model.Cliente.IdCliente, new { @class = "hidden form-control" })
+                @Html.ValidationMessageFor(model => model.Cliente.IdCliente)
+                @*hidden*@
+            </div>
+            <p>Compra de: </p>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.Nombre)
+                @Html.TextBoxFor(model => model.Cliente.Nombre, new { @class = "form-control", @id = "txtNombre", disabled = "true" })
+                @Html.ValidationMessageFor(model => model.Cliente.Nombre, null, new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.ApellidoPaterno)
+                @Html.TextBoxFor(model => model.Cliente.ApellidoPaterno, new { @class = "form-control", @id = "txtApellidoPaterno", disabled = "true" })
+                @Html.ValidationMessageFor(model => model.Cliente.ApellidoPaterno, null, new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Cliente.ApellidoMaterno)
+                @Html.TextBoxFor(model => model.Cliente.ApellidoMaterno, new { @class = "form-control", @id = "txtApellidoMaterno", disabled = "true" })
+                @Html.ValidationMessageFor(model => model.Cliente.ApellidoMaterno, null, new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <td>Nombre de Medicamento</td>
+                    <td class="hidden">IdSKUMedicamento</td>
+                    <td class="hidden">IdCliente</td>
+                    <td>Cantidad</td>
+                    <td>Precio</td>
+                    <td>Total</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.ClienteMedicamento clienteMedicamento in Model.ClientesMedicamentos)
+                {
+                    <tr>
+                        <td>@clienteMedicamento.Medicamento.Nombre</td>
+                        <td class="hidden">@clienteMedicamento.Medicamento.IdSKUMedicamento</td>
+                        <td class="hidden">@clienteMedicamento.Cliente.IdCliente</td>
+                        <td>1</td>
+                        <td>@clienteMedicamento.Medicamento.Precio</td>
+                        <td>@clienteMedicamento.Medicamento.ConteoTotal</td>
+                        
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+
+

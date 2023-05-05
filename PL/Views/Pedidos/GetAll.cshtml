@@ -1,0 +1,56 @@
+﻿@model ML.ClienteMedicamento
+
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="~/Content/EstilosCards.css" />
+}
+
+<html>
+<head>
+
+</head>
+
+<body>
+
+    @using (Html.BeginForm("MedicamentoAdd", "ClienteMedicamento", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <form>
+            <section class="articles">
+
+                @foreach (ML.Medicamento medicamento in Model.Medicamento.Medicamentos)
+                {
+                    <article>
+                        <div class="article-wrapper">
+                            <figure>
+
+                                @if (medicamento.Imagen != null)
+                                {
+                                    <img id="Img" src="data:image/*;base64,@medicamento.Imagen" style="width:200px ; height:200px" />
+                                }
+                                else
+                                {
+                                    <img id="Img" src="~/Imagenes/SinImagen.jpg" style="width:250px ; height:250px" />
+                                }
+                            </figure>
+                            <div class="article-body">
+
+                                <h2>@medicamento.Nombre</h2>
+                                <p>Precio: $@medicamento.Precio</p>
+                                <h7 style="display:none">@Model.Cliente.IdCliente</h7>
+                                <h7 style="display:none">@medicamento.IdSKUMedicamento</h7>
+                                <div class="button-wrapper">
+                                    <div style="float:right;">
+                                        @*<input type="submit" value="Añadir" class="btn btn-success" />*@
+                                        <a class="glyphicon glyphicon-plus" href="@Url.Action("MedicamentoAdd", "ClienteMedicamento", new { IdSKUMedicamento = medicamento.IdSKUMedicamento })">Añadir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </section>
+        </form>
+    }
+</body>
+</html>

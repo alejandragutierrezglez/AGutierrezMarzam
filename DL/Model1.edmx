@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="AGutierrezMarzamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ClienteMedicamento">
+          <Key>
+            <PropertyRef Name="IdClienteMedicamento" />
+          </Key>
+          <Property Name="IdClienteMedicamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="IdSKUMedicamento" Type="int" />
+        </EntityType>
+        <EntityType Name="Medicamento">
+          <Key>
+            <PropertyRef Name="IdSKUMedicamento" />
+          </Key>
+          <Property Name="IdSKUMedicamento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="9" Scale="2" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Imagen" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK__ClienteMe__IdCli__145C0A3F">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="ClienteMedicamento" Type="Self.ClienteMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClienteMedicamento">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClienteMe__IdSKU__15502E78">
+          <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="0..1" />
+          <End Role="ClienteMedicamento" Type="Self.ClienteMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicamento">
+              <PropertyRef Name="IdSKUMedicamento" />
+            </Principal>
+            <Dependent Role="ClienteMedicamento">
+              <PropertyRef Name="IdSKUMedicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ClienteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ClienteDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClienteGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClienteGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClienteGetByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ClienteMedicamentoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClienteMedicamentoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ClienteUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="ApellidoMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="Username" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ConteoTotalMedicamentosByCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MedicamentoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="MedicamentoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MedicamentoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="MedicamentoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MedicamentosGetByIdCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MedicamentoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
+          <Parameter Name="Precio" Type="decimal" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="AGutierrezMarzamModelStoreContainer">
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClienteMedicamento" EntityType="Self.ClienteMedicamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicamento" EntityType="Self.Medicamento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ClienteMe__IdCli__145C0A3F" Association="Self.FK__ClienteMe__IdCli__145C0A3F">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="ClienteMedicamento" EntitySet="ClienteMedicamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClienteMe__IdSKU__15502E78" Association="Self.FK__ClienteMe__IdSKU__15502E78">
+            <End Role="Medicamento" EntitySet="Medicamento" />
+            <End Role="ClienteMedicamento" EntitySet="ClienteMedicamento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AGutierrezMarzamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClienteMedicamentoes" Relationship="Self.FK__ClienteMe__IdCli__145C0A3F" FromRole="Cliente" ToRole="ClienteMedicamento" />
+        </EntityType>
+        <EntityType Name="ClienteMedicamento">
+          <Key>
+            <PropertyRef Name="IdClienteMedicamento" />
+          </Key>
+          <Property Name="IdClienteMedicamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="IdSKUMedicamento" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__ClienteMe__IdCli__145C0A3F" FromRole="ClienteMedicamento" ToRole="Cliente" />
+          <NavigationProperty Name="Medicamento" Relationship="Self.FK__ClienteMe__IdSKU__15502E78" FromRole="ClienteMedicamento" ToRole="Medicamento" />
+        </EntityType>
+        <EntityType Name="Medicamento">
+          <Key>
+            <PropertyRef Name="IdSKUMedicamento" />
+          </Key>
+          <Property Name="IdSKUMedicamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Precio" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClienteMedicamentoes" Relationship="Self.FK__ClienteMe__IdSKU__15502E78" FromRole="Medicamento" ToRole="ClienteMedicamento" />
+          <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__ClienteMe__IdCli__145C0A3F">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+          <End Role="ClienteMedicamento" Type="Self.ClienteMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClienteMedicamento">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ClienteMe__IdSKU__15502E78">
+          <End Role="Medicamento" Type="Self.Medicamento" Multiplicity="0..1" />
+          <End Role="ClienteMedicamento" Type="Self.ClienteMedicamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Medicamento">
+              <PropertyRef Name="IdSKUMedicamento" />
+            </Principal>
+            <Dependent Role="ClienteMedicamento">
+              <PropertyRef Name="IdSKUMedicamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AGutierrezMarzamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+          <EntitySet Name="ClienteMedicamentoes" EntityType="Self.ClienteMedicamento" />
+          <EntitySet Name="Medicamentoes" EntityType="Self.Medicamento" />
+          <AssociationSet Name="FK__ClienteMe__IdCli__145C0A3F" Association="Self.FK__ClienteMe__IdCli__145C0A3F">
+            <End Role="Cliente" EntitySet="Clientes" />
+            <End Role="ClienteMedicamento" EntitySet="ClienteMedicamentoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ClienteMe__IdSKU__15502E78" Association="Self.FK__ClienteMe__IdSKU__15502E78">
+            <End Role="Medicamento" EntitySet="Medicamentoes" />
+            <End Role="ClienteMedicamento" EntitySet="ClienteMedicamentoes" />
+          </AssociationSet>
+          <FunctionImport Name="ClienteAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteDelete">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteGetAll" ReturnType="Collection(AGutierrezMarzamModel.ClienteGetAll_Result)" />
+          <FunctionImport Name="ClienteGetById" ReturnType="Collection(AGutierrezMarzamModel.ClienteGetById_Result)">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteUpdate">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteGetByUsername" ReturnType="Collection(AGutierrezMarzamModel.ClienteGetByUsername_Result)">
+          <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteMedicamentoDelete">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MedicamentoAdd">
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="MedicamentoDelete">
+          <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MedicamentoGetAll" ReturnType="Collection(AGutierrezMarzamModel.MedicamentoGetAll_Result)" />
+          <FunctionImport Name="MedicamentoGetById" ReturnType="Collection(AGutierrezMarzamModel.MedicamentoGetById_Result)">
+          <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MedicamentosGetByIdCliente" ReturnType="Collection(AGutierrezMarzamModel.MedicamentosGetByIdCliente_Result)">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MedicamentoUpdate">
+            <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
+            <Parameter Name="Precio" Mode="In" Type="Decimal" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteMedicamentoAdd">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ConteoTotalMedicamentosByCliente" ReturnType="Collection(Int32)">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ClienteGetAll_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ClienteGetById_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ClienteGetByUsername_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdSKUMedicamento" Nullable="true" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="NombreMedicamento" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IdClienteMedicamento" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MedicamentoGetAll_Result">
+          <Property Type="Int32" Name="IdSKUMedicamento" Nullable="false" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MedicamentoGetById_Result">
+          <Property Type="Int32" Name="IdSKUMedicamento" Nullable="false" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="MedicamentosGetByIdCliente_Result">
+          <Property Type="Int32" Name="IdClienteMedicamento" Nullable="false" />
+          <Property Type="Int32" Name="IdCliente" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Username" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IdSKUMedicamento" Nullable="true" />
+          <Property Type="Decimal" Name="Precio" Nullable="true" Precision="9" Scale="2" />
+          <Property Type="String" Name="Nombre_Medicamento" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Imagen" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AGutierrezMarzamModelStoreContainer" CdmEntityContainer="AGutierrezMarzamEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="AGutierrezMarzamModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClienteMedicamentoes">
+            <EntityTypeMapping TypeName="AGutierrezMarzamModel.ClienteMedicamento">
+              <MappingFragment StoreEntitySet="ClienteMedicamento">
+                <ScalarProperty Name="IdClienteMedicamento" ColumnName="IdClienteMedicamento" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicamentoes">
+            <EntityTypeMapping TypeName="AGutierrezMarzamModel.Medicamento">
+              <MappingFragment StoreEntitySet="Medicamento">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClienteAdd" FunctionName="AGutierrezMarzamModel.Store.ClienteAdd" />
+          <FunctionImportMapping FunctionImportName="ClienteDelete" FunctionName="AGutierrezMarzamModel.Store.ClienteDelete" />
+          <FunctionImportMapping FunctionImportName="ClienteGetAll" FunctionName="AGutierrezMarzamModel.Store.ClienteGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.ClienteGetAll_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClienteGetById" FunctionName="AGutierrezMarzamModel.Store.ClienteGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.ClienteGetById_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClienteUpdate" FunctionName="AGutierrezMarzamModel.Store.ClienteUpdate" />
+          <FunctionImportMapping FunctionImportName="ClienteGetByUsername" FunctionName="AGutierrezMarzamModel.Store.ClienteGetByUsername">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.ClienteGetByUsername_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="NombreMedicamento" ColumnName="NombreMedicamento" />
+                <ScalarProperty Name="IdClienteMedicamento" ColumnName="IdClienteMedicamento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClienteMedicamentoDelete" FunctionName="AGutierrezMarzamModel.Store.ClienteMedicamentoDelete" />
+          <FunctionImportMapping FunctionImportName="MedicamentoAdd" FunctionName="AGutierrezMarzamModel.Store.MedicamentoAdd" />
+          <FunctionImportMapping FunctionImportName="MedicamentoDelete" FunctionName="AGutierrezMarzamModel.Store.MedicamentoDelete" />
+          <FunctionImportMapping FunctionImportName="MedicamentoGetAll" FunctionName="AGutierrezMarzamModel.Store.MedicamentoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.MedicamentoGetAll_Result">
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MedicamentoGetById" FunctionName="AGutierrezMarzamModel.Store.MedicamentoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.MedicamentoGetById_Result">
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MedicamentosGetByIdCliente" FunctionName="AGutierrezMarzamModel.Store.MedicamentosGetByIdCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AGutierrezMarzamModel.MedicamentosGetByIdCliente_Result">
+                <ScalarProperty Name="IdClienteMedicamento" ColumnName="IdClienteMedicamento" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdSKUMedicamento" ColumnName="IdSKUMedicamento" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Nombre_Medicamento" ColumnName="Nombre_Medicamento" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MedicamentoUpdate" FunctionName="AGutierrezMarzamModel.Store.MedicamentoUpdate" />
+          <FunctionImportMapping FunctionImportName="ClienteMedicamentoAdd" FunctionName="AGutierrezMarzamModel.Store.ClienteMedicamentoAdd" />
+          <FunctionImportMapping FunctionImportName="ConteoTotalMedicamentosByCliente" FunctionName="AGutierrezMarzamModel.Store.ConteoTotalMedicamentosByCliente" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
