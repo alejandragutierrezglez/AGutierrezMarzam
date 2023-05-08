@@ -38,15 +38,35 @@ namespace PL.Controllers
             ML.Result result = BL.ClienteMedicamento.MedicamentoGetByIdCliente(cliente.IdCliente);
 
             ML.ClienteMedicamento clienteMedicamento = new ML.ClienteMedicamento();
-            clienteMedicamento.Medicamento.ConteoTotal = int.Parse(BL.ClienteMedicamento.ConteoTotal(cliente.IdCliente).ToString());
+            clienteMedicamento.Medicamento = new ML.Medicamento();            
+
+            clienteMedicamento.Medicamento.ConteoTotal = BL.ClienteMedicamento.ConteoTotal(cliente.IdCliente);
+            clienteMedicamento.Medicamento.TotalAPagar = BL.ClienteMedicamento.TotalAPagar(cliente.IdCliente);
             clienteMedicamento.Cliente = new ML.Cliente();
-            ML.Result resultMedicamento = BL.Cliente.GetById(clienteMedicamento.Cliente.IdCliente);
+            ML.Result resultMedicamento = BL.Cliente.GetById(cliente.IdCliente);
             clienteMedicamento.ClientesMedicamentos = result.Objects;
             clienteMedicamento.Cliente = (ML.Cliente)resultMedicamento.Object;
 
             return View(clienteMedicamento);
 
 
+        }
+        public ActionResult MedicamentosDelete(int IdClienteMedicamento)
+        {
+            ML.ClienteMedicamento clienteMedicamento = new ML.ClienteMedicamento();
+            clienteMedicamento.IdClienteMedicamento = IdClienteMedicamento;
+            ML.Result result = BL.Pedido.MedicamentoDelete(IdClienteMedicamento);
+
+            if (result.Correct)
+            {
+                ViewBag.message = "Se ha eliminado el medicamento del carrito";
+            }
+            else
+            {
+                ViewBag.message = "Error al eliminar debido a: " + result.ErrorMessage;
+
+            }
+            return PartialView("Modal");
         }
     }
 }

@@ -170,14 +170,7 @@ namespace BL
                         cliente.ApellidoMaterno= query.ApellidoMaterno;
                         cliente.Username = query.Username;
                         cliente.Password = query.Password;
-                        
-                        ML.Medicamento medicamento = new ML.Medicamento();
-                        medicamento.IdSKUMedicamento = query.IdSKUMedicamento;
-                        medicamento.Precio = query.Precio.Value;
-                        medicamento.Nombre = query.NombreMedicamento;
-
-                        ML.ClienteMedicamento clienteMedicamento = new ML.ClienteMedicamento();
-                        clienteMedicamento.IdClienteMedicamento = query.IdClienteMedicamento.Value;
+                     
 
                         result.Object= cliente;
                         result.Correct = true;

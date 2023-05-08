@@ -221,5 +221,23 @@ namespace DL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ConteoTotalMedicamentosByCliente", idClienteParameter);
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> SumaTotalAPagarByCliente(Nullable<int> idCliente)
+        {
+            var idClienteParameter = idCliente.HasValue ?
+                new ObjectParameter("IdCliente", idCliente) :
+                new ObjectParameter("IdCliente", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("SumaTotalAPagarByCliente", idClienteParameter);
+        }
+    
+        public virtual int ClienteMedicamentoPedidosDelete(Nullable<int> idClienteMedicamento)
+        {
+            var idClienteMedicamentoParameter = idClienteMedicamento.HasValue ?
+                new ObjectParameter("IdClienteMedicamento", idClienteMedicamento) :
+                new ObjectParameter("IdClienteMedicamento", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClienteMedicamentoPedidosDelete", idClienteMedicamentoParameter);
+        }
     }
 }

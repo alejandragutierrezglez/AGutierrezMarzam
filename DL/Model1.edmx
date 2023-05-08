@@ -82,6 +82,9 @@
           <Parameter Name="IdCliente" Type="int" Mode="In" />
           <Parameter Name="IdSKUMedicamento" Type="int" Mode="In" />
         </Function>
+        <Function Name="ClienteMedicamentoPedidosDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdClienteMedicamento" Type="int" Mode="In" />
+        </Function>
         <Function Name="ClienteUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdCliente" Type="int" Mode="In" />
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
@@ -113,6 +116,9 @@
           <Parameter Name="Precio" Type="decimal" Mode="In" />
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
           <Parameter Name="Imagen" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SumaTotalAPagarByCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="AGutierrezMarzamModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
@@ -254,7 +260,13 @@
             <Parameter Name="IdSKUMedicamento" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ConteoTotalMedicamentosByCliente" ReturnType="Collection(Int32)">
-            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SumaTotalAPagarByCliente" ReturnType="Collection(Decimal)">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ClienteMedicamentoPedidosDelete">
+            <Parameter Name="IdClienteMedicamento" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ClienteGetAll_Result">
@@ -433,6 +445,8 @@
           <FunctionImportMapping FunctionImportName="MedicamentoUpdate" FunctionName="AGutierrezMarzamModel.Store.MedicamentoUpdate" />
           <FunctionImportMapping FunctionImportName="ClienteMedicamentoAdd" FunctionName="AGutierrezMarzamModel.Store.ClienteMedicamentoAdd" />
           <FunctionImportMapping FunctionImportName="ConteoTotalMedicamentosByCliente" FunctionName="AGutierrezMarzamModel.Store.ConteoTotalMedicamentosByCliente" />
+          <FunctionImportMapping FunctionImportName="SumaTotalAPagarByCliente" FunctionName="AGutierrezMarzamModel.Store.SumaTotalAPagarByCliente" />
+          <FunctionImportMapping FunctionImportName="ClienteMedicamentoPedidosDelete" FunctionName="AGutierrezMarzamModel.Store.ClienteMedicamentoPedidosDelete" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

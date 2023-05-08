@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -151,14 +152,48 @@ namespace BL
             return result;
         }
 
-        public ML.Result ConteoTotal(int IdCliente)
+        public static int ConteoTotal(int IdCliente)
         {
+            int conteoTotal = 0;
             ML.Result result = new ML.Result();
             try
             {
                 using (DL.AGutierrezMarzamEntities context = new DL.AGutierrezMarzamEntities())
                 {
-                    var query = context.ConteoTotalMedicamentosByCliente(IdCliente).FirstOrDefault(); 
+                    var query = context.ConteoTotalMedicamentosByCliente(IdCliente).FirstOrDefault();
+                    conteoTotal = query.Value;
+                    if (query != null)
+                    {
+                        result.Correct = true;
+
+                    }
+                    else
+                    {
+
+                        result.Correct = false;
+                    }
+
+                }
+
+            }
+            catch (Exception Ex)
+            {
+                result.ErrorMessage = Ex.Message;
+                result.Correct = false;
+                result.Ex = Ex;
+            }
+            return conteoTotal;
+        }
+        public static decimal TotalAPagar(int IdCliente)
+        {
+            ML.Result result = new ML.Result();
+            decimal totalAPagar = 0;
+            try
+            {
+                using (DL.AGutierrezMarzamEntities context = new DL.AGutierrezMarzamEntities())
+                {
+                    var query = context.SumaTotalAPagarByCliente(IdCliente).FirstOrDefault();
+                    totalAPagar = query.Value;
                     if (query != null)
                     {
                         result.Correct = true;
@@ -178,8 +213,7 @@ namespace BL
                 result.Correct = false;
                 result.Ex = Ex;
             }
-            return result;
-           
+            return totalAPagar;
         }
     }
 }
