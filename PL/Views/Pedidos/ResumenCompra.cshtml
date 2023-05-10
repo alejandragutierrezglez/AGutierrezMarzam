@@ -5,9 +5,11 @@
 }
 
 <h2>Resumen de Compra</h2>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/RealizarCompra.js" "></script>
+<link rel="stylesheet" href="~/fonts/Login.css" />
 <div style="float:right;">
-    @Html.ActionLink("Agregar + medicamentos", "GetAll", "ClienteMedicamento", htmlAttributes: new { @class = "btn btn-success" })
+    @Html.ActionLink("Agregar + medicamentos", "GetAll", "ClienteMedicamento", htmlAttributes: new { @class = "btn btn-primary" })
 </div>
 <div class="row">
     <div class="col-md-12">
@@ -72,9 +74,104 @@
             </tbody>
 
         </table>
-
+        <button type="button" id="btnRealizarCompra" class="btn btn btn-success btn-lg btn-block" value="" onclick="Modal()">Realizar compra</button>
     </div>
 </div>
 
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title" id="myModalLabel">Pago con Tarjeta</h4>
+            </div>
+
+            <div class="modal-body">
+                <form>
+                    <h4>Llena los siguientes campos para completar tu compra.</h4>
+                    <div class="form-group">
+                        <label class="NumeroTarjeta">Numero de Tarjeta</label>
+                        <input type="text" class="form-control" id="txtTarjeta" placeholder="Tarjeta(16 digitos)" />
+                    </div>
+                    <div class="form-group">
+                        <label class="CVV">CVV</label>
+                        <input type="text" class="form-control" id="txtCVV" placeholder="CVV" />
+                    </div>
+                    <div class="form-group">
+                        <label class="FechaExpiracion">Fecha Expiracion</label>
+                        <input type="text" class="form-control" id="txtFechaExpiracion" placeholder="Fecha Expiracion" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Banco">Banco</label>
+                        <input type="text" class="form-control" id="txtBanco" placeholder="Banco" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Calle">Calle</label>
+                        <input type="text" class="form-control" id="txtCalle" placeholder="Calle" />
+                    </div>
+                    <div class="form-group">
+                        <label class="NumeroExterior">Numero Exterior</label>
+                        <input type="text" class="form-control" id="txtNumeroExterior" placeholder="Numero Exterior" />
+                    </div>
+                    <div class="form-group">
+                        <label class="NumeroInterior">Numero Interior</label>
+                        <input type="text" class="form-control" id="txtNumeroInterior" placeholder="Numero Interior" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Colonia">Colonia</label>
+                        <input type="text" class="form-control" id="txtColonia" placeholder="Colonia" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Municipio">Municipio</label>
+                        <input type="text" class="form-control" id="txtMunicipio" placeholder="CVV" />
+                    </div>
+                    <div class="form-group">
+                        <label class="Estado">Estado</label>
+                        <input type="text" class="form-control" id="txtEstado" placeholder="Estado" />
+                    </div>
+                    <div class="form-group">
+                        <label class="CodigoPostal">Codigo Postal</label>
+                        <input type="text" class="form-control" id="txtCodigoPostal" placeholder="Codigo Postal" />
+                    </div>
+                </form> 
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="Validar()">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/RealizarCompra.js" "></script>
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="modal" id="ModalOk">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                            <h1 style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                PAGO REALIZADO CON ÉXITO
+                            </h1>
+                            <img src="https://i.pinimg.com/originals/74/2f/7e/742f7ea29cbfd7fd3f4848f17e621070.gif" align="middle" width="400" height="400">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Regresar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/Empleado/EmpleadoCRUD.js" "></script>
 

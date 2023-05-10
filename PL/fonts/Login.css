@@ -98,3 +98,8 @@ body {
         border: 1px solid #ccc;
         font-family: inherit;
     }
+
+.Ok:hover {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
